@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="css/form.css">
+  <title>Decoder</title>
+</head>
+<body>
+
+  <img src="img/loader.gif" class="loader" alt="">
+
+  <div class="alert-box">
+    <img src="img/error.png" class="alert-img" alt="">
+    <p class="alert-msg">Error message</p>
+  </div>
+  
+  <div class="container">
+    <p class="logo">Decoder</p>
+    <div>
+        <input type="text" autocomplete="off" id="text1" placeholder="Enter Encoded 1">
+        <button class="submit-btn" onclick="decode1()">Decode</button>
+        <input type="text" autocomplete="off" id="text2" placeholder="Encoded 2">
+        <button class="submit-btn" onclick="decode2()">Decode</button>
+        <input type="text" autocomplete="off" id="text3" placeholder="Encoded 3">
+        <button class="submit-btn" onclick="decode3()">Decode</button>
+        <input type="text" autocomplete="off" id="text4" placeholder="Final message">
+        <button class="submit-btn" onclick="login()">Log in</button>
+    </div>
+  </div>
+
+  <script>
+    function customEncode(str) {
+      let encoded = '';
+      for (let i = 0; i < str.length; i++) {
+        encoded += str.charCodeAt(i).toString(16) + (i % 2 === 0 ? 'a' : 'b');
+      }
+      return encoded;
+    }
+
+    function customDecode(str) {
+      let decoded = '';
+      let parts = str.split(/[ab]/);
+      for (let i = 0; i < parts.length; i++) {
+        if (parts[i]) {
+          decoded += String.fromCharCode(parseInt(parts[i], 16));
+        }
+      }
+      return decoded;
+    }
+
+    function decode1() {
+      const text1 = document.getElementById('text1').value;
+      const decoded1 = customDecode(text1);
+      document.getElementById('text2').value = decoded1;
+    }
+
+    function decode2() {
+      const text2 = document.getElementById('text2').value;
+      const decoded2 = customDecode(text2);
+      document.getElementById('text3').value = decoded2;
+    }
+
+    function decode3() {
+      const text3 = document.getElementById('text3').value;
+      const decoded3 = customDecode(text3);
+      document.getElementById('text4').value = decoded3;
+    }
+
+    // Helper function to encode a message three times
+    function encodeMessage(message) {
+      const encoded1 = customEncode(message);
+      const encoded2 = customEncode(encoded1);
+      const encoded3 = customEncode(encoded2);
+      return encoded3;
+    }
+
+  </script>
+</body>
+</html>
